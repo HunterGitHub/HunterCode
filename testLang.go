@@ -34,6 +34,9 @@ type myinter interface {
 	fuck() int
 	a()
 }
+func getstr() ([]string, error) {
+	return []string{"fdd","fdfd"}, nil
+}
 
 func main() {
 	//var path = "/home/admin/aitao"
@@ -61,6 +64,8 @@ func main() {
 		fmt.Println(*bmap)
 	}
 	//oh := make(int)
+	str, er := getstr()
+	fmt.Println("fdsss", str, er)
 
 	a.a()
 	
