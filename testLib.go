@@ -3,6 +3,7 @@ package main
 import (
 	"net"
 	"fmt"
+	//"os"
 )
 
 func main() {
@@ -14,5 +15,16 @@ func main() {
 	fmt.Println(net.LookupAddr("127.0.0.1"))
 	fmt.Println(net.LookupAddr("172.24.108.35"))
 	fmt.Println(net.LookupAddr(ip))
-	fmt.Println("host is ", net.LookupHost(host))
+	fmt.Println(net.LookupHost(host))
+	//file, _ := os.Open("/home/admin/aitao/bin/jbossctl")
+	data := make([]byte, 1000) 
+	//file.Read(data)
+	fmt.Println(string(data))
+	for _, v := range data {
+		if v == '\n' {
+			fmt.Print("a newline")
+		}
+	}
+	fmt.Println(net.InterfaceAddrs())
+	fmt.Println(net.LookupMX("aitao097120.pre.cm3"))
 }

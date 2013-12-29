@@ -68,5 +68,15 @@ func main() {
 	fmt.Println("fdsss", str, er)
 
 	a.a()
+
+	fmt.Println("=======")
+	h := &[4]int{1,2,3}
+	usefuc(h)
+	fmt.Println(h)
+
 	
+}
+
+func usefuc(a *[]int){
+	(*a)[1] = 4
 }
