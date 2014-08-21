@@ -1,0 +1,4 @@
+HunterCode
+==========
+
+Kinds of code
