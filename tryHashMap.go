@@ -31,8 +31,8 @@ func (dm *DiyMap) k(k string) (string, bool) {
 			return n.v, true
 		}
 	}
-//	  fmt.Println("none")
-	return "", false 
+//	fmt.Println("none")
+	return "", false
 }
 
 func (dm *DiyMap) kv(k string, v string) error {
@@ -47,11 +47,13 @@ func (dm *DiyMap) kv(k string, v string) error {
 			fmt.Println("already set kv")
 			return nil
 		}
-		if n.next == nil { 
+		if n.next == nil {
 			n.next = &Node{k, v, nil};
 			fmt.Println("set kv: ", n.next)
 			return nil
-		} else { n = n.next }
+		} else {
+			n = n.next
+		}
 	}
 	return nil
 }

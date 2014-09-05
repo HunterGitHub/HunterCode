@@ -77,6 +77,6 @@ func main() {
 	
 }
 
-func usefuc(a *[]int){
+func usefuc(a *[4]int){
 	(*a)[1] = 4
 }
