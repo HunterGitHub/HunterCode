@@ -74,7 +74,17 @@ func main() {
 	usefuc(h)
 	fmt.Println(h)
 
-	
+	var rr int8 = 0
+	iiint(rr)
+	if false {
+		fmt.Println("if")
+	} else if true {
+		fmt.Println("if")
+	}
+}
+
+func iiint(a int8) {
+	fmt.Println(a)
 }
 
 func usefuc(a *[4]int){
