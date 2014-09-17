@@ -23,7 +23,42 @@ type Tree struct {
 	root	*TreeNode
 }
 
-/*
+func (t *Tree) L_Rotate(n *TreeNode) {
+	y := n.right
+	n.right = y.left		// child switch, x, y independent
+	if y.left != nil {
+		y.left.p = n		// child chg parent
+	}
+	y.p = n.p				// middle chg parent
+	if n.p == nil {
+		t.root = y
+	} else if n == n.p.left {
+		n.p.left = y			// y switch
+	} else if n == n.p.right {
+		n.p.right = y			// y switch
+	}
+	y.left = n
+	n.p = y
+}
+
+func (t *Tree) R_Rotate(n *TreeNode) {
+	y := n.left
+	n.left = y.right
+	if y.right != nil {
+		y.right.p = n
+	}
+	y.p = n.p
+	if n.p == nil {
+		t.root = y
+	} else if n == n.p.right {
+		n.p.right = y
+	} else if n == n.p.left {
+		n.p.left = y
+	}
+	y.right = n
+	n.p = y
+}
+
 func (t *Tree) Insert(e E) bool {
 	var x = t.root
 	var y *TreeNode
@@ -45,62 +80,85 @@ func (t *Tree) Insert(e E) bool {
 	}
 	// fix up
 	if n.p == nil {
-		n.color == BLACK
+		n.color = BLACK
+		return true
 	} else if n.p.color == BLACK {
 		return true
 	}
 	for n.p.color == RED {
 		if n.p == n.p.p.left {
 			uncle := n.p.p.right
-			if uncle.color == RED {
+			if uncle != nil && uncle.color == RED {
 				n.p.color	= BLACK
 				uncle.color = BLACK
 				n.p.p.color	= RED
 				n			= n.p.p
 			} else if n == n.p.right {
 				n = n.p
-				L_ROTATE(n)
+				t.L_Rotate(n)
 			} else if n == n.p.left {
 				n.p.color	= BLACK
 				n.p.p.color	= RED
-				R_ROTATE(n.p.p)
+				t.R_Rotate(n.p.p)
 			}
 		} else if n.p == n.p.p.right {
 			uncle := n.p.p.left
-			if uncle.color == RED {
+			if uncle != nil && uncle.color == RED {
 				n.p.color	= BLACK
 				uncle.color	= BLACK
 				n.p.p.color	= RED
 				n			= n.p.p
 			} else if n == n.p.left {
 				n = n.p
-				R_ROTATE(n)
+				t.R_Rotate(n)
 			} else if n == n.p.right {
 				n.p.color	= BLACK
 				n.p.p.color = RED
-				L_ROTATE(n.p.p)
+				t.L_Rotate(n.p.p)
 			}
+		}
+		if n.p == nil {
+			break;
 		}
 	}
 	t.root.color = BLACK
 
 	return true
 }
-*/
 
 func (t *Tree) remove() {
 }
 
 func (t *TreeNode) printT() {
+	fmt.Println(t.E, t.color)
 	if t.left != nil {
 		fmt.Print("<-")
 		t.left.printT()
 	}
-	fmt.Println(t.E)
+	fmt.Println("----")
 	if t.right != nil {
 		fmt.Print("->")
 		t.right.printT()
 	}
+}
+
+func (t *TreeNode) printGood() {
+	var q = make(chan *TreeNode, 50)
+	q <- t
+	for {
+		select {
+		case v := <-q:
+			if v != nil {
+				fmt.Println(v.E, v.color, v.p)
+				q <- v.left
+				q <- v.right
+			}
+		default:
+			fmt.Println("end--")
+			goto end
+		}
+	}
+	end:
 }
 
 func main() {
@@ -111,7 +169,11 @@ func main() {
 	t.Insert(4)
 	t.Insert(5)
 	t.Insert(6)
+	t.Insert(7)
+	t.Insert(8)
+	t.Insert(9)
 	t.root.printT()
+	t.root.printGood()
 }
 
 
