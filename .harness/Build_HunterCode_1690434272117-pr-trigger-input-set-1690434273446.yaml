@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_HunterCode_1690434272117-pr-trigger-input-set
+  identifier: Build_HunterCode_1690434272117prtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_HunterCode_1690434272117
+    properties:
+      ci:
+        codebase:
+          build:
+            type: PR
+            spec:
+              number: <+trigger.prNumber>
